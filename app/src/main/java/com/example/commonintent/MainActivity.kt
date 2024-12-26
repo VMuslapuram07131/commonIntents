@@ -1,5 +1,6 @@
 package com.example.commonintent
 
+import android.app.SearchManager
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -26,5 +27,23 @@ class MainActivity : AppCompatActivity() {
         val url = findViewById<TextInputEditText>(R.id.url_input).text.toString()
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://$url"))
         startActivity(intent)
+    }
+
+    fun openLocation(view: View) {
+        val url = findViewById<TextInputEditText>(R.id.adressinput).text.toString()
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=$url"))
+        startActivity(intent)
+    }
+
+
+    fun searchWeb(view: View) {
+        val query = findViewById<TextInputEditText>(R.id.searchInput).text.toString()
+        val intent = Intent(Intent.ACTION_WEB_SEARCH).apply {
+            putExtra(SearchManager.QUERY, query)
+        }
+        if (intent.resolveActivity(packageManager) != null) {
+            startActivity(intent)
+        }
+
     }
 }
